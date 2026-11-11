@@ -326,16 +326,6 @@ def merge_additions(source: str, additions: str, imports: str) -> str:
     additions = additions.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
     imports = imports.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
 
-    try:
-        class_name, _ = find_primary_class(source)
-        if class_name:
-            import os
-            os.makedirs("/home/jamie/.gemini/antigravity-ide/brain/1ddf7a38-d71b-4638-ac3b-ee3dc2974f6d/scratch", exist_ok=True)
-            with open(f"/home/jamie/.gemini/antigravity-ide/brain/1ddf7a38-d71b-4638-ac3b-ee3dc2974f6d/scratch/last_additions_{class_name}.py", "w") as f:
-                f.write(additions)
-    except Exception:
-        pass
-
     lines = source.splitlines()
 
     # 1. Insert imports at the top

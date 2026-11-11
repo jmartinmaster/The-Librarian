@@ -29,8 +29,6 @@ from typing import Callable
 from app.config import AppConfig, save_config
 from app.models.mcp_server_manager import MCPServerManager
 
-DEFAULT_MVC_EDITOR_PATH = Path(r"C:\Users\jamie\OneDrive\Personel\Documents\GitHub\MVC_editor")
-
 
 class IntegrationsController:
     """Delegates integrations actions and config updates."""
@@ -101,12 +99,10 @@ class IntegrationsController:
 
     def launch_mvc_editor(self) -> tuple[bool, str]:
         """Launch the external MVC editor."""
-        path = Path((self.config.mvc_editor_root or "").strip())
-        if not path:
-            if DEFAULT_MVC_EDITOR_PATH.exists():
-                path = DEFAULT_MVC_EDITOR_PATH
-            else:
-                return False, "External MVC editor path is not configured."
+        raw_root = (self.config.mvc_editor_root or "").strip()
+        if not raw_root:
+            return False, "External MVC editor path is not configured."
+        path = Path(raw_root)
                 
         entrypoint = path / "main.py"
         if not entrypoint.exists():
